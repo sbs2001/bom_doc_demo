@@ -1,0 +1,89 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title> – intro</title>
+    <link>/tags/intro/</link>
+    <description>Recent content in intro on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+	  <atom:link href="/tags/intro/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Quick Start: Quick Start</title>
+      <link>/quick-start/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/quick-start/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
+&lt;h3 id=&#34;using-binary&#34;&gt;Using binary:&lt;/h3&gt;
+&lt;p&gt;You can see releases of &lt;code&gt;bom&lt;/code&gt; on &lt;a href=&#34;https://github.com/kubernetes-sigs/bom/releases/&#34;&gt;Github Releases&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Replace the tag,os and architecture as required for below commands to install.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-console&#34; data-lang=&#34;console&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#000;font-style:italic&#34;&gt;curl -L  https://github.com/kubernetes-sigs/bom/releases/download/v0.2.2/bom-linux-amd64  -o bom
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#000;font-style:italic&#34;&gt;sudo mv ./bom /usr/local/bin/bom
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#000;font-style:italic&#34;&gt;sudo chmod +x /usr/local/bin/bom
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;using-go&#34;&gt;Using go:&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-console&#34; data-lang=&#34;console&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#000;font-style:italic&#34;&gt;go install sigs.k8s.io/bom/cmd/bom
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;examples&#34;&gt;Examples&lt;/h2&gt;
+&lt;p&gt;The following examples show how bom can process different sources to generate
+an SPDX Bill of Materials. Multiple sources can be combined to get a document
+describing different packages.&lt;/p&gt;
+&lt;h3 id=&#34;generate-a-sbom-from-the-current-directory&#34;&gt;Generate a SBOM from the Current Directory&lt;/h3&gt;
+&lt;p&gt;To process a directory as a source for your SBOM, use the &lt;code&gt;-d&lt;/code&gt; flag or simply pass
+the path as the first argument to &lt;code&gt;bom&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;bom generate -n http://example.com/ .
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;process-a-container-image&#34;&gt;Process a Container Image&lt;/h3&gt;
+&lt;p&gt;This example pulls the &lt;code&gt;kube-apiserver&lt;/code&gt; image, analyzes it, and describes in the
+SBOM. Each of its layers are then expressed as a subpackage in the resulting
+document:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-console&#34; data-lang=&#34;console&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#000;font-style:italic&#34;&gt;bom generate -n http://example.com/ --image registry.k8s.io/kube-apiserver:v1.21.0
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;generate-a-sbom-to-describe-files&#34;&gt;Generate a SBOM to describe files&lt;/h3&gt;
+&lt;p&gt;You can create an SBOM with just files in the manifest. For that, use &lt;code&gt;-f&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-console&#34; data-lang=&#34;console&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#000;font-style:italic&#34;&gt;bom generate -n http://example.com/ \
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#000;font-style:italic&#34;&gt;  -f Makefile \
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#000;font-style:italic&#34;&gt;  -f file1.exe \
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#000;font-style:italic&#34;&gt;  -f document.md \
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#000;font-style:italic&#34;&gt;  -f other/file.txt
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;code-of-conduct&#34;&gt;Code of conduct&lt;/h2&gt;
+&lt;p&gt;Participation in the Kubernetes community is governed by the &lt;a href=&#34;code-of-conduct.md&#34;&gt;Kubernetes Code of Conduct&lt;/a&gt;.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>CLI Reference: CLI Reference</title>
+      <link>/cli-reference/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/cli-reference/</guid>
+      <description>
+        
+        
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>: Documentation</title>
+      <link>/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/</guid>
+      <description>
+        
+        
+        &lt;p&gt;bom is a utility that leverages the code written for the Kubernetes Bill of Materials project. It enables software authors to generate an SBOM for their projects in a simple, yet powerful way.&lt;/p&gt;
+&lt;p&gt;bom is a general-purpose tool that can generate SPDX packages from directories, container images, single files, and other sources. The utility has a built-in license classifier that recognizes the 400+ licenses in the SPDX catalog.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>
