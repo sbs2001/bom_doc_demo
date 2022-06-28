@@ -1,7 +1,7 @@
 ---
 title: "Quick Start"
 linkTitle: "Quick Start"
-weight: 2
+weight: 1
 tags: ["intro"]
 ---
 
